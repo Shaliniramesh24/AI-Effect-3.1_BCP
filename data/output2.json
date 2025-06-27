@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2024-01-15T10:30:00Z",
+    "household_id": "H001",
+    "power": 2.5,
+    "efficiency": 0.1,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2024-01-15T10:31:00Z",
+    "household_id": "H001",
+    "power": 2.7,
+    "efficiency": 0.105,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2024-01-15T10:32:00Z",
+    "household_id": "H002",
+    "power": 6.2,
+    "efficiency": 0.225,
+    "status": "high_usage",
+    "anomaly_detected": true
+  },
+  {
+    "timestamp": "2024-01-15T10:33:00Z",
+    "household_id": "H003",
+    "power": 1.8,
+    "efficiency": 0.082,
+    "status": "normal",
+    "anomaly_detected": false
+  },
+  {
+    "timestamp": "2024-01-15T10:34:00Z",
+    "household_id": "H004",
+    "power": 4.2,
+    "efficiency": 0.181,
+    "status": "normal",
+    "anomaly_detected": false
+  }
+]
