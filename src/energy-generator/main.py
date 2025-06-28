@@ -1,11 +1,9 @@
-import csv
-import json
-import os  
+import csv,json,os
 
 # This function reads the energy data from the CSV file
 def read_energy_data():
     # The path to CSV File
-    csv_path = '../../data/sample_energy_data.csv'
+    csv_path = '../../data/energy_data.csv'
 
     # Checks if the CSV file exists
     if not os.path.exists(csv_path):

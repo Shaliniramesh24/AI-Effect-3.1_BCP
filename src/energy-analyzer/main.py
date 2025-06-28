@@ -1,61 +1,51 @@
-import json
-import os
+import json, os
 
-# Defining the input and Ouput file path
 INPUT_FILE = '../../data/output1.json'
 OUTPUT_FILE = '../../data/output2.json'
+DATA_FIELDS = ["timestamp", "household_id", "power_consumption", "voltage", "current"]
 
-#Updates the input file to new list with additional fields
-def analyze_energy_data(data):
-    results = []
-    for row in data:
-        try:
-            power = float(row["power_consumption"])
-            voltage = float(row["voltage"])
-            current = float(row["current"])
+# Check fields and missing values if any
+def validate_row(row):
+    for field in DATA_FIELDS:
+        if field not in row or row[field] in [None, "", "null"]:
+            raise ValueError(f"Invalid or missing '{field}' in row: {row}")
 
-            efficiency = (power / (voltage * current)) * 100
-            status = "high_usage" if power > 5.0 else "normal"
-            anomaly_detected = power > 5.0
+# Data Analysis-Logic
+def process_row(row):
+    power, voltage, current = map(float, (row["power_consumption"], row["voltage"], row["current"]))
+    return {
+        "timestamp": row["timestamp"],
+        "household_id": row["household_id"],
+        "power": power,
+        "efficiency": round((power / (voltage * current)) * 100, 3),
+        "status": "high_usage" if power > 5.0 else "normal",
+        "anomaly_detected": power > 5.0
+    }
 
-            processed_entry = {
-                "timestamp": row["timestamp"],
-                "household_id": row["household_id"],
-                "power": power,
-                "efficiency": round(efficiency, 3),
-                "status": status,
-                "anomaly_detected": anomaly_detected
-            }
+#Processed data to output JSON
+def write_json(data, path):
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2)
 
-            results.append(processed_entry)
-
-        except Exception as e:
-            # Stop and raise a clear error if the data is missing or wrong
-            raise RuntimeError(f"Error while processing row: {row}\nDetails: {e}")
-
-    return results
-
-# This is the main function that the container will run
+#Main function
 def main():
-    # First, check if the input file actually exists
     if not os.path.exists(INPUT_FILE):
-        print(f"Input file not found: {INPUT_FILE}")
-        return  # Exit the function early if no input file
+        raise FileNotFoundError(f" Input file not found: {INPUT_FILE}")
+    with open(INPUT_FILE) as infile:
+        raw_data = json.load(infile)
 
-    # Open and read the JSON input file
-    with open(INPUT_FILE, "r") as infile:
-        raw_data = json.load(infile)  # This will be a list of dictionaries
+    processed_data = []
+    for row in raw_data:
+        try:
+            validate_row(row)           # 1: Check for valid structure
+            processed = process_row(row)  # 2: Process logic
+            processed_data.append(processed)
+        except Exception as e:
+            raise RuntimeError(f" Error processing row: {row}\nDetails: {e}")
 
-    # Process the data using our custom function
-    processed_data = analyze_energy_data(raw_data)
-
-    # Open the output file for writing the processed data
-    with open(OUTPUT_FILE, "w") as outfile:
-        json.dump(processed_data, outfile, indent=2)  # Save as pretty-printed JSON
-
-    # Print confirmation message
+    write_json(processed_data, OUTPUT_FILE)  # 3 Save to JSON file - output2.json
+    print(json.dumps(processed_data, indent=2))
     print(f"Container 2: Processed {len(processed_data)} records")
 
-# Python will call main() automatically when this script is run directly
 if __name__ == "__main__":
     main()
