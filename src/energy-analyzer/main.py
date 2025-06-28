@@ -46,6 +46,5 @@ def main():
     write_json(processed_data, OUTPUT_FILE)  # 3 Save to JSON file - output2.json
     print(json.dumps(processed_data, indent=2))
     print(f"Container 2: Processed {len(processed_data)} records")
-
 if __name__ == "__main__":
     main()
