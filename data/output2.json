@@ -24,14 +24,6 @@
     "anomaly_detected": true
   },
   {
-    "timestamp": "2025-06-01T10:15:00Z",
-    "household_id": "H004",
-    "power": 3.1,
-    "efficiency": 0.176,
-    "status": "normal",
-    "anomaly_detected": false
-  },
-  {
     "timestamp": "2025-06-01T10:20:00Z",
     "household_id": "H005",
     "power": 7.0,
@@ -76,14 +68,6 @@
     "household_id": "H010",
     "power": 3.7,
     "efficiency": 0.22,
-    "status": "normal",
-    "anomaly_detected": false
-  },
-  {
-    "timestamp": "2025-06-01T10:50:00Z",
-    "household_id": "H011",
-    "power": 4.0,
-    "efficiency": 0.202,
     "status": "normal",
     "anomaly_detected": false
   },

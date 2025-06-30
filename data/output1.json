@@ -22,7 +22,7 @@
   },
   {
     "timestamp": "2025-06-01T10:15:00Z",
-    "household_id": "H004",
+    "household_id": "",
     "power_consumption": "3.1",
     "voltage": "220",
     "current": "8"
@@ -71,7 +71,7 @@
   },
   {
     "timestamp": "2025-06-01T10:50:00Z",
-    "household_id": "H011",
+    "household_id": "",
     "power_consumption": "4.0",
     "voltage": "220",
     "current": "9"
